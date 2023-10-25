@@ -1,6 +1,8 @@
 package com.practice.bugtracker.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -24,7 +26,10 @@ public class Ticket {
     @Column(length = 36, columnDefinition = "VARCHAR(36)", updatable = false, nullable = false)
     private UUID ticketId;
 
+    @NotBlank
+    @NotNull
     private String title;
+
     private String description;
 
     @CreationTimestamp
