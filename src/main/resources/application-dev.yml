@@ -1,0 +1,24 @@
+spring:
+  flyway:
+    enable: true
+  datasource:
+    username: root
+    password: backend
+    url: jdbc:mysql://localhost:3306/bugdb
+  jpa:
+    database: mysql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+      # generate SQL statements
+    #      jakarta:
+    #        persistence:
+    #          schema-generation:
+    #            scripts:
+    #              action: drop-and-create
+    #              create-source: metadata
+    #              create-target: V1__init-mysql-db.sql
+    #              drop-target: V1__init-mysql-db.sql
+    hibernate:
+      ddl-auto: validate
+  driver-class-name: com.mysql.cj.jdbc.Driver

@@ -1,0 +1,11 @@
+application:
+  version: V1.0
+  title: BugTracker
+
+spring:
+  flyway:
+    enable: false
+  profiles:
+    active: dev
+
+
