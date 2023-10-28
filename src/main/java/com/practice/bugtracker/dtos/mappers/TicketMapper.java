@@ -5,6 +5,7 @@ import com.practice.bugtracker.models.Ticket;
 
 public interface TicketMapper {
 
-    Ticket IssueDtoToIssue(TicketDTO dto);
-    TicketDTO IssueToIssueDto(Ticket issue);
+  Ticket ticketDtoToTicket(TicketDTO dto);
+
+  TicketDTO ticketToTicketDto(Ticket issue);
 }

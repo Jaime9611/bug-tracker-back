@@ -45,7 +45,7 @@ public class Project {
   private Team team;
 
   @OneToMany(mappedBy = "project")
-  private Set<Ticket> tickets = new HashSet<>();
+  private Set<Ticket> tickets;
 
   private LocalDateTime startsAt;
   private LocalDateTime endsAt;
