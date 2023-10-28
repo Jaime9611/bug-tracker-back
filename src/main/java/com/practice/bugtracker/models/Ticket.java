@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -28,13 +27,31 @@ public class Ticket {
 
     @NotBlank
     @NotNull
+    @Column(length = 50, columnDefinition = "VARCHAR(50)")
     private String title;
 
     private String description;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+    @OneToOne
+    @JoinColumn(name = "priority_id")
+    private Priority priority;
+
+    @OneToOne
+    @JoinColumn(name = "ticket_type_id")
+    private TicketType ticketType;
+
+    @OneToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
 }
