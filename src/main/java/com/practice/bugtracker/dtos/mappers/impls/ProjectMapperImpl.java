@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 public class ProjectMapperImpl implements ProjectMapper {
 
   private final TeamMapper teamMapper;
-  private final TicketMapper ticketMapper;
 
   @Override
   public Project projectDtoToProject(ProjectDTO dto) {
@@ -53,14 +52,5 @@ public class ProjectMapperImpl implements ProjectMapper {
     dto.team(teamMapper.teamToTeamDto(project.getTeam()));
 
     return dto.build();
-  }
-
-
-  private Set<Ticket> getTickets(List<TicketDTO> tickets) {
-    return tickets.stream().map(ticketMapper::ticketDtoToTicket).collect(Collectors.toSet());
-  }
-
-  private List<TicketDTO> getDtoTickets(Set<Ticket> tickets) {
-    return tickets.stream().map(ticketMapper::ticketToTicketDto).toList();
   }
 }
