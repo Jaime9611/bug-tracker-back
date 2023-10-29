@@ -1,5 +1,6 @@
 package com.practice.bugtracker.repositories;
 
+import com.practice.bugtracker.helpers.TicketBuilder;
 import com.practice.bugtracker.models.Ticket;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,7 @@ class TicketRepositoryTest {
 
     @Test
     void shouldSaveIssue() {
-        Ticket savedIssue = ticketRepository.save(Ticket.builder()
-                        .title("Create test project")
-                .build());
+        Ticket savedIssue = ticketRepository.save(TicketBuilder.buildTicket());
 
         assertThat(savedIssue).isNotNull();
         assertThat(savedIssue.getTicketId()).isNotNull();
