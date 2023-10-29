@@ -17,7 +17,7 @@ class TicketRepositoryTest {
 
     @Test
     void shouldSaveIssue() {
-        Ticket savedIssue = ticketRepository.save(TicketBuilder.buildTicket());
+        Ticket savedIssue = ticketRepository.save(TicketBuilder.buildTicketWithoutId());
 
         assertThat(savedIssue).isNotNull();
         assertThat(savedIssue.getTicketId()).isNotNull();

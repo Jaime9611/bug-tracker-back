@@ -1,6 +1,6 @@
 spring:
   flyway:
-    enable: true
+    enabled: true
   datasource:
     username: root
     password: backend

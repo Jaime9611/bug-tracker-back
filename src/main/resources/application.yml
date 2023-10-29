@@ -3,9 +3,8 @@ application:
   title: BugTracker
 
 spring:
-  flyway:
-    enable: false
   profiles:
     active: dev
-
+  flyway:
+    enabled: false
 

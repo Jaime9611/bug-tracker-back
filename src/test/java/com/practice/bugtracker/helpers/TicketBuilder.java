@@ -27,6 +27,15 @@ public class TicketBuilder {
         .build();
   }
 
+  public static Ticket buildTicketWithoutId() {
+    return Ticket.builder()
+        .title(TITLE)
+        .createdAt(CREATED_DATE)
+        .updatedAt(UPDATED_DATE)
+        .description(DESC)
+        .build();
+  }
+
   public static TicketDTO buildTicketDto() {
     return TicketDTO.builder()
         .id(UUID.randomUUID())
