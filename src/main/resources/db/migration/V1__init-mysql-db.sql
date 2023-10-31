@@ -56,7 +56,6 @@ CREATE TABLE `ticket`
     ticket_id VARCHAR(36) NOT NULL,
     title VARCHAR(50) NOT NULL,
     description VARCHAR(255),
-    ticket_desc VARCHAR(255),
     ticket_type_id VARCHAR(36) DEFAULT NULL,
     priority_id VARCHAR(36) DEFAULT NULL,
     status_id VARCHAR(36) DEFAULT NULL,
@@ -65,16 +64,6 @@ CREATE TABLE `ticket`
     project_id VARCHAR(36) DEFAULT NULL,
     PRIMARY KEY(ticket_id)
 ) ENGINE = InnoDB;
-
--- UK CONSTRAINTS
-ALTER TABLE `project`
-    ADD CONSTRAINT uk_project_team UNIQUE (team_id);
-ALTER TABLE `ticket`
-    ADD CONSTRAINT uk_ticket_priority UNIQUE (priority_id);
-ALTER TABLE `ticket`
-    ADD CONSTRAINT uk_ticket_status UNIQUE (status_id);
-ALTER TABLE `ticket`
-    ADD CONSTRAINT uk_ticket_ticket_type UNIQUE (ticket_type_id);
 
 -- FK CONSTRAINTS
 
