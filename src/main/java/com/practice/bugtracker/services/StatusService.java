@@ -9,4 +9,10 @@ public interface StatusService {
   StatusDTO getStatusById(UUID id);
 
   List<StatusDTO> getAll();
+
+  StatusDTO create(StatusDTO status);
+
+  void updateById(UUID id, StatusDTO status);
+
+  Boolean deleteById(UUID id);
 }
