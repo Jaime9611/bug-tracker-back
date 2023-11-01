@@ -14,7 +14,6 @@ import com.practice.bugtracker.models.Status;
 import com.practice.bugtracker.repositories.StatusRepository;
 import com.practice.bugtracker.services.impls.StatusServiceImpl;
 import com.practice.bugtracker.validations.exceptions.NotFoundException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +26,6 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @ExtendWith(MockitoExtension.class)
 class StatusServiceTest {
