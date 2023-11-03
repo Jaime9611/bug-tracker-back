@@ -1,6 +1,4 @@
 spring:
-  flyway:
-    enabled: true
   datasource:
     username: root
     password: backend
@@ -17,8 +15,10 @@ spring:
 #            scripts:
 #              action: drop-and-create
 #              create-source: metadata
-#              create-target: V1__init-mysql-db.sql
-#              drop-target: V1__init-mysql-db.sql
+#              create-target: init-mysql-db.sql
+#              drop-target: init-mysql-db.sql
     hibernate:
       ddl-auto: validate
   driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    enabled: true

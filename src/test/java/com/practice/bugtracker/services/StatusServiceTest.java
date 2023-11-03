@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.practice.bugtracker.dtos.StatusDTO;
@@ -13,7 +15,6 @@ import com.practice.bugtracker.models.Status;
 import com.practice.bugtracker.repositories.StatusRepository;
 import com.practice.bugtracker.services.impls.StatusServiceImpl;
 import com.practice.bugtracker.validations.exceptions.NotFoundException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,8 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -34,9 +37,78 @@ class StatusServiceTest {
   @InjectMocks
   StatusServiceImpl statusService;
 
+  @Captor
+  ArgumentCaptor<UUID> uuidArgumentCaptor;
+
+  @Captor
+  ArgumentCaptor<Status> statusArgumentCaptor;
+
   @BeforeEach
   void setUp() {
     statusService = new StatusServiceImpl(statusRepository, new StatusMapperImpl());
+  }
+
+  @Test
+  void shouldThrowNotFoundWhenStatusIdDoesNotExistInDeleteById() {
+    when(statusRepository.findById(any())).thenReturn(Optional.empty());
+
+    assertThrows(NotFoundException.class, () -> {
+      statusService.deleteById(UUID.randomUUID());
+    });
+  }
+
+  @Test
+  void shouldDeleteStatusById() {
+    Status mockStatus = StatusBuilder.buildStatus();
+
+    when(statusRepository.findById(any(UUID.class))).thenReturn(Optional.of(mockStatus));
+    doNothing().when(statusRepository).deleteById(uuidArgumentCaptor.capture());
+
+    UUID mockId = UUID.randomUUID();
+    Boolean result = statusService.deleteById(mockId);
+
+    assertThat(mockId).isEqualTo(uuidArgumentCaptor.getValue());
+    assertThat(result).isTrue();
+  }
+
+  @Test
+  void shouldThrowNotFoundWhenIdNotExistsInUpdateById() {
+    given(statusRepository.findById(any(UUID.class))).willReturn(Optional.empty());
+
+    assertThrows(NotFoundException.class, () -> {
+      statusService.updateById(UUID.randomUUID(), null);
+    });
+  }
+
+  @Test
+  void shouldUpdateStatusById() {
+    Status mockStatus = StatusBuilder.buildStatus();
+
+    when(statusRepository.findById(any(UUID.class))).thenReturn(Optional.of(mockStatus));
+    when(statusRepository.save(any(Status.class))).thenReturn(mockStatus);
+
+    StatusDTO statusDTO = StatusBuilder.buildStatusDto();
+    statusService.updateById(statusDTO.getId(), statusDTO);
+
+    verify(statusRepository).findById(uuidArgumentCaptor.capture());
+    verify(statusRepository).save(statusArgumentCaptor.capture());
+
+    assertThat(statusDTO.getId()).isEqualTo(uuidArgumentCaptor.getValue());
+    assertThat(statusDTO.getTitle()).isEqualTo(statusArgumentCaptor.getValue().getTitle());
+  }
+
+  @Test
+  void shouldCreateAndReturnStatusDto() {
+    Status mockStatus = StatusBuilder.buildStatus();
+
+    when(statusRepository.save(any(Status.class))).thenReturn(mockStatus);
+
+    StatusDTO statusDTO = StatusBuilder.buildStatusDto();
+    statusService.create(statusDTO);
+
+    verify(statusRepository).save(statusArgumentCaptor.capture());
+
+    assertThat(statusDTO.getTitle()).isEqualTo(statusArgumentCaptor.getValue().getTitle());
   }
 
   @Test

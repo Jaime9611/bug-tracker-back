@@ -65,8 +65,11 @@ CREATE TABLE `ticket`
     PRIMARY KEY(ticket_id)
 ) ENGINE = InnoDB;
 
--- FK CONSTRAINTS
+-- UK CONSTRAINTS
+ALTER TABLE `project`
+    ADD CONSTRAINT uk_project_team UNIQUE (team_id);
 
+-- FK CONSTRAINTS
 ALTER TABLE `project`
     ADD CONSTRAINT fk_project_team FOREIGN KEY (team_id)
         REFERENCES `team` (id);

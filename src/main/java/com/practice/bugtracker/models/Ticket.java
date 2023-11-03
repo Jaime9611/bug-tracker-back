@@ -43,15 +43,15 @@ public class Ticket {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @OneToOne
-    @JoinColumn(name = "priority_id")
+    @ManyToOne
+    @JoinColumn(name = "priority_id", referencedColumnName = "id")
     private Priority priority;
 
-    @OneToOne
-    @JoinColumn(name = "ticket_type_id")
+    @ManyToOne
+    @JoinColumn(name = "ticket_type_id", referencedColumnName = "id")
     private TicketType ticketType;
 
-    @OneToOne
-    @JoinColumn(name = "status_id")
+    @ManyToOne
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
     private Status status;
 }
