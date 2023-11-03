@@ -45,16 +45,26 @@ public class StatusServiceImpl implements StatusService {
   public void updateById(UUID id, StatusDTO status) {
     Optional<Status> existingStatus = statusRepository.findById(id);
 
-    if(existingStatus.isPresent()) {
+    if (existingStatus.isPresent()) {
       Status updatedStatus = existingStatus.get();
       updatedStatus.setTitle(status.getTitle());
 
       statusRepository.save(updatedStatus);
+    } else {
+      throw new NotFoundException(String.format("Status with id: %s doest not exists.", id));
     }
   }
 
   @Override
   public Boolean deleteById(UUID id) {
-    return null;
+    Optional<Status> foundStatus = statusRepository.findById(id);
+
+    if(foundStatus.isPresent()) {
+      statusRepository.deleteById(id);
+
+      return true;
+    } else {
+      throw new NotFoundException(String.format("Status with id: %s doest not exists.", id));
+    }
   }
 }

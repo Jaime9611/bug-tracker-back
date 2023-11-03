@@ -41,7 +41,7 @@ public class Project {
   private String title;
 
   @OneToOne
-  @JoinColumn(name = "team_id")
+  @JoinColumn(name = "team_id", referencedColumnName = "id")
   private Team team;
 
   @OneToMany(mappedBy = "project")

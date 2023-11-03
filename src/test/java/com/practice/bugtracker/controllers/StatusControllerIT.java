@@ -21,7 +21,7 @@ class StatusControllerIT {
   @Test
   void shouldReturnStatusById() {
     Status status = statusRepository.findAll().iterator().next();
-
+    System.out.println(status.getId());
     StatusDTO result = statusController.getStatusById(status.getId()).getBody();
 
     assertThat(result).isNotNull();
