@@ -3,6 +3,8 @@ package com.practice.bugtracker.helpers;
 import com.practice.bugtracker.dtos.TicketDTO;
 import com.practice.bugtracker.models.Ticket;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class TicketBuilder {
@@ -48,6 +50,16 @@ public class TicketBuilder {
         .ticketType(TicketTypeBuilder.buildTicketTypeDto())
         .description(DESC)
         .build();
+  }
+
+  public static List<Ticket> buildTicketList(int size) {
+    List<Ticket> statusList = new ArrayList<>();
+
+    for (int x = 0; x < size; x++) {
+      statusList.add(buildTicket());
+    }
+
+    return statusList;
   }
 
 }

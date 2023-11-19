@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface TicketTypeService {
 
-  TicketTypeDTO create(TicketTypeDTO priorityDTO);
+  TicketTypeDTO create(TicketTypeDTO ticketTypeDTO);
 
   TicketTypeDTO getById(UUID id);
 
