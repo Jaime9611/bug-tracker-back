@@ -1,4 +1,4 @@
-package com.practice.bugtracker.services.impls;
+package com.practice.bugtracker.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,6 +17,7 @@ import com.practice.bugtracker.dtos.mappers.impls.TicketTypeMapperImpl;
 import com.practice.bugtracker.helpers.TicketBuilder;
 import com.practice.bugtracker.models.Ticket;
 import com.practice.bugtracker.repositories.TicketRepository;
+import com.practice.bugtracker.services.impls.TicketServiceImpl;
 import com.practice.bugtracker.validations.exceptions.NotFoundException;
 import java.util.List;
 import java.util.Optional;
