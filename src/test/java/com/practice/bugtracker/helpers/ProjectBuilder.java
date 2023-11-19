@@ -3,6 +3,8 @@ package com.practice.bugtracker.helpers;
 import com.practice.bugtracker.dtos.ProjectDTO;
 import com.practice.bugtracker.models.Project;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class ProjectBuilder {
@@ -30,6 +32,16 @@ public class ProjectBuilder {
         .startsAt(START_DATE)
         .endsAt(END_DATE)
         .build();
+  }
+
+  public static List<Project> buildProjectList(int size) {
+    List<Project> statusList = new ArrayList<>();
+
+    for (int x = 0; x < size; x++) {
+      statusList.add(buildProject());
+    }
+
+    return statusList;
   }
 
 }
