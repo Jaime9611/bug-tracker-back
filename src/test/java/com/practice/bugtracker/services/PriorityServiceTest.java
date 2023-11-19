@@ -73,13 +73,13 @@ class PriorityServiceTest {
 
     when(priorityRepository.findById(any(UUID.class))).thenReturn(Optional.of(mockPriority));
 
-    PriorityDTO foundedObj = priorityService.getById(mockPriority.getId());
+    PriorityDTO foundObj = priorityService.getById(mockPriority.getId());
 
     verify(priorityRepository).findById(uuidArgumentCaptor.capture());
 
     assertThat(mockPriority.getId()).isEqualTo(uuidArgumentCaptor.getValue());
-    assertThat(foundedObj.getId()).isEqualTo(mockPriority.getId());
-    assertThat(foundedObj.getTitle()).isEqualTo(mockPriority.getTitle());
+    assertThat(foundObj.getId()).isEqualTo(mockPriority.getId());
+    assertThat(foundObj.getTitle()).isEqualTo(mockPriority.getTitle());
   }
 
   @Test

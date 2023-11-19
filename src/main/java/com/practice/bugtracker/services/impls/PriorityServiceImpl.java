@@ -30,16 +30,16 @@ public class PriorityServiceImpl implements PriorityService {
 
   @Override
   public PriorityDTO getById(UUID id) {
-    Priority foundedPriority = priorityRepository.findById(id).orElseThrow(
+    Priority foundPriority = priorityRepository.findById(id).orElseThrow(
         NotFoundException::new);
 
-    return priorityMapper.priorityToPriorityDto(foundedPriority);
+    return priorityMapper.priorityToPriorityDto(foundPriority);
   }
 
   @Override
   public List<PriorityDTO> getAll() {
     return StreamSupport.stream(priorityRepository.findAll().spliterator(), false)
-        .map(priority -> priorityMapper.priorityToPriorityDto(priority)).collect(
-            Collectors.toList());
+        .map(priorityMapper::priorityToPriorityDto)
+        .collect(Collectors.toList());
   }
 }
