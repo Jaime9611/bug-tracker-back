@@ -33,26 +33,27 @@ public class TeamServiceImpl implements TeamService {
 
   @Override
   public Boolean deleteById(UUID id) {
-    Team foundedTeam = findTeamById(id);
+    Team foundTeam = findTeamById(id);
 
-    teamRepository.deleteById(foundedTeam.getId());
+    teamRepository.deleteById(foundTeam.getId());
 
     return true;
   }
 
   @Override
   public void updateById(UUID id, TeamDTO teamDTO) {
-    Team foundedTeam = findTeamById(id);
+    Team foundTeam = findTeamById(id);
 
-    foundedTeam.setTitle(teamDTO.getTitle());
+    foundTeam.setTitle(teamDTO.getTitle());
 
-    teamRepository.save(foundedTeam);
+    teamRepository.save(foundTeam);
   }
 
   @Override
   public List<TeamDTO> getAll() {
-    return StreamSupport.stream(teamRepository.findAll().spliterator(), false).map(team -> teamMapper.teamToTeamDto(team)).collect(
-        Collectors.toList());
+    return StreamSupport.stream(teamRepository.findAll().spliterator(), false)
+        .map(teamMapper::teamToTeamDto)
+        .collect(Collectors.toList());
   }
 
   private Team findTeamById(UUID id) {

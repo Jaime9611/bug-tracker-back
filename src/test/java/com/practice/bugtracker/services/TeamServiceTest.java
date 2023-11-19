@@ -123,12 +123,12 @@ public class TeamServiceTest {
 
     when(teamRepository.findById(any(UUID.class))).thenReturn(Optional.of(mockTeam));
 
-    TeamDTO findedTeam = teamService.getById(mockTeam.getId());
+    TeamDTO foundTeam = teamService.getById(mockTeam.getId());
 
     verify(teamRepository).findById(uuidArgumentCaptor.capture());
 
     assertThat(mockTeam.getId()).isEqualTo(uuidArgumentCaptor.getValue());
-    assertThat(mockTeam.getId()).isEqualTo(findedTeam.getId());
+    assertThat(mockTeam.getId()).isEqualTo(foundTeam.getId());
   }
 
   @Test
