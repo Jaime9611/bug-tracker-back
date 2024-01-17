@@ -1,6 +1,7 @@
 package com.practice.bugtracker.dtos;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 import lombok.Builder;
 import lombok.Data;
@@ -13,4 +14,5 @@ public class ProjectDTO {
   private TeamDTO team;
   private LocalDateTime startsAt;
   private LocalDateTime endsAt;
+  private List<TicketResponseDTO> tickets;
 }
