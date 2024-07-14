@@ -14,5 +14,6 @@ public class ProjectDTO {
   private TeamDTO team;
   private LocalDateTime startsAt;
   private LocalDateTime endsAt;
+  private StatusDTO status;
   private List<TicketResponseDTO> tickets;
 }
