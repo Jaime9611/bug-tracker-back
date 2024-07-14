@@ -14,6 +14,7 @@ import com.practice.bugtracker.repositories.TicketRepository;
 import com.practice.bugtracker.repositories.TicketTypeRepository;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -32,14 +33,13 @@ public class BootstrapData implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
+    loadStatusData();
     loadProjectData();
     loadTicketData();
   }
 
-  private void loadTicketData() {
-    if (ticketRepository.count() == 0) {
-      Project project = projectRepository.findAll().get(0);
-
+  private void loadStatusData() {
+    if (statusRepository.count() == 0) {
       Status status1 = Status.builder()
           .title("OPEN")
           .build();
@@ -49,11 +49,20 @@ public class BootstrapData implements CommandLineRunner {
       Status status3 = Status.builder()
           .title("DONE")
           .build();
+      Status status4 = Status.builder()
+          .title("DROPPED")
+          .build();
 
-      Status openStatus = statusRepository.save(status1);
-      Status inProgressStatus = statusRepository.save(status2);
-      Status doneStatus = statusRepository.save(status3);
+      statusRepository.save(status1);
+      statusRepository.save(status2);
+      statusRepository.save(status3);
+      statusRepository.save(status4);
+    }
+  }
 
+  private void loadTicketData() {
+    if (ticketRepository.count() == 0) {
+      Project project = projectRepository.findAll().get(0);
 
       Priority priority1 = Priority.builder()
           .title("LOW")
@@ -86,7 +95,7 @@ public class BootstrapData implements CommandLineRunner {
           .description("Ticket 1 descp")
           .project(project)
           .priority(lowPriority)
-          .status(openStatus)
+          .status(statusRepository.findByTitle("OPEN"))
           .ticketType(backendType)
           .build();
 
@@ -97,7 +106,7 @@ public class BootstrapData implements CommandLineRunner {
           .description("Ticket 2 descp")
           .project(project)
           .priority(mediumPriority)
-          .status(inProgressStatus)
+          .status(statusRepository.findByTitle("IN_PROGRESS"))
           .ticketType(frontendType)
           .build();
 
@@ -108,7 +117,7 @@ public class BootstrapData implements CommandLineRunner {
           .description("Ticket 3 descp")
           .project(project)
           .priority(highPriority)
-          .status(doneStatus)
+          .status(statusRepository.findByTitle("DONE"))
           .ticketType(frontendType)
           .build();
 
@@ -118,20 +127,47 @@ public class BootstrapData implements CommandLineRunner {
 
   private void loadProjectData() {
     if (projectRepository.count() == 0) {
-      Team team = Team.builder()
+      Team team1 = Team.builder()
           .title("AvengersCode")
           .build();
 
-      Team savedTeam = teamRepository.save(team);
-
-      Project project = Project.builder()
-          .title("BugTracker")
-          .team(savedTeam)
-          .startsAt(LocalDateTime.now())
-          .endsAt(LocalDateTime.now().plusMonths(1))
+      Team team2 = Team.builder()
+          .title("Akatsuki")
           .build();
 
-      projectRepository.save(project);
+      Team team3 = Team.builder()
+          .title("SpiceTeam")
+          .build();
+
+      Team savedTeam1 = teamRepository.save(team1);
+      Team savedTeam2 = teamRepository.save(team2);
+      Team savedTeam3 = teamRepository.save(team3);
+
+      Project project1 = Project.builder()
+          .title("BugTracker")
+          .team(savedTeam1)
+          .startsAt(LocalDateTime.now())
+          .endsAt(LocalDateTime.now().plusMonths(1))
+          .status(statusRepository.findByTitle("IN_PROGRESS"))
+          .build();
+
+      Project project2 = Project.builder()
+          .title("MyDoctorChecker")
+          .team(savedTeam2)
+          .startsAt(LocalDateTime.now())
+          .endsAt(LocalDateTime.now().plusMonths(1))
+          .status(statusRepository.findByTitle("DROPPED"))
+          .build();
+
+      Project project3 = Project.builder()
+          .title("MyEnglishApp")
+          .team(savedTeam3)
+          .startsAt(LocalDateTime.now())
+          .endsAt(LocalDateTime.now().plusMonths(1))
+          .status(statusRepository.findByTitle("OPEN"))
+          .build();
+
+      projectRepository.saveAll(List.of(project1, project2, project3));
     }
 
   }

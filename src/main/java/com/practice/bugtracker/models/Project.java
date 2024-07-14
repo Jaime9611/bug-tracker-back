@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
@@ -46,6 +47,10 @@ public class Project {
 
   @OneToMany(mappedBy = "project")
   private Set<Ticket> tickets;
+
+  @ManyToOne
+  @JoinColumn(name = "status_id", referencedColumnName = "id")
+  private Status status;
 
   private LocalDateTime startsAt;
   private LocalDateTime endsAt;

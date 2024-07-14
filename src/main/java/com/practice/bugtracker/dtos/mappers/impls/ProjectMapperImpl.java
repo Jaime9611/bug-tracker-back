@@ -4,6 +4,7 @@ import com.practice.bugtracker.dtos.ProjectDTO;
 import com.practice.bugtracker.dtos.TicketDTO;
 import com.practice.bugtracker.dtos.TicketResponseDTO;
 import com.practice.bugtracker.dtos.mappers.ProjectMapper;
+import com.practice.bugtracker.dtos.mappers.StatusMapper;
 import com.practice.bugtracker.dtos.mappers.TeamMapper;
 import com.practice.bugtracker.dtos.mappers.TicketMapper;
 import com.practice.bugtracker.models.Project;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 public class ProjectMapperImpl implements ProjectMapper {
 
   private final TeamMapper teamMapper;
+  private final StatusMapper statusMapper;
 
   @Override
   public Project projectDtoToProject(ProjectDTO dto) {
@@ -32,6 +34,7 @@ public class ProjectMapperImpl implements ProjectMapper {
     project.title(dto.getTitle());
     project.startsAt(dto.getStartsAt());
     project.endsAt(dto.getEndsAt());
+    project.status(statusMapper.statusDtoToStatus(dto.getStatus()));
     project.team(teamMapper.teamDtoToTeam(dto.getTeam()));
 
     return project.build();
@@ -52,6 +55,7 @@ public class ProjectMapperImpl implements ProjectMapper {
     dto.startsAt(project.getStartsAt());
     dto.endsAt(project.getEndsAt());
     dto.team(teamMapper.teamToTeamDto(project.getTeam()));
+    dto.status(statusMapper.statusToStatusDto(project.getStatus()));
 
     List<TicketResponseDTO> ticketList = project.getTickets().stream()
         .map(ticket -> TicketResponseDTO.builder().ticketId(ticket.getTicketId()).title(

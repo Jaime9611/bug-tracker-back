@@ -18,6 +18,7 @@ CREATE TABLE `project`
     title VARCHAR(50) NOT NULL,
     team_id VARCHAR(36) DEFAULT NULL,
     starts_at DATETIME(6),
+    status_id VARCHAR(36) DEFAULT NULL,
     ends_at DATETIME(6),
     PRIMARY KEY(project_id)
 ) ENGINE = InnoDB;
@@ -73,6 +74,9 @@ ALTER TABLE `project`
 ALTER TABLE `project`
     ADD CONSTRAINT fk_project_team FOREIGN KEY (team_id)
         REFERENCES `team` (id);
+ALTER TABLE `project`
+    ADD CONSTRAINT fk_project_status FOREIGN KEY (status_id)
+        REFERENCES `status` (id);
 ALTER TABLE `ticket`
     ADD CONSTRAINT fk_ticket_priority FOREIGN KEY (priority_id)
         REFERENCES `priority` (id);
