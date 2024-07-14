@@ -2,7 +2,7 @@ spring:
   datasource:
     username: root
     password: backend
-    url: jdbc:mysql://localhost:3306/bug_tracker
+    url: jdbc:mysql://${DB_SERVER:localhost}:3306/bug_tracker
   jpa:
     database: mysql
     properties:
