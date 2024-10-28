@@ -52,7 +52,7 @@ class TicketServiceImplTest {
         new PriorityMapperImpl(),
         new StatusMapperImpl(),
         new TicketTypeMapperImpl(),
-        new ProjectMapperImpl(new TeamMapperImpl())
+        new ProjectMapperImpl(new TeamMapperImpl(), new StatusMapperImpl())
     ));
   }
 

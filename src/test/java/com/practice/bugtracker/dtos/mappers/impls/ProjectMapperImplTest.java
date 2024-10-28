@@ -20,7 +20,7 @@ class ProjectMapperImplTest {
 
   @BeforeEach
   void setUp() {
-    projectMapper = new ProjectMapperImpl(new TeamMapperImpl());
+    projectMapper = new ProjectMapperImpl(new TeamMapperImpl(), new StatusMapperImpl());
   }
 
   @Test

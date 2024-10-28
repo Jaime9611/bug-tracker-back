@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import com.practice.bugtracker.dtos.ProjectDTO;
 import com.practice.bugtracker.dtos.mappers.impls.ProjectMapperImpl;
+import com.practice.bugtracker.dtos.mappers.impls.StatusMapperImpl;
 import com.practice.bugtracker.dtos.mappers.impls.TeamMapperImpl;
 import com.practice.bugtracker.helpers.ProjectBuilder;
 import com.practice.bugtracker.models.Project;
@@ -44,7 +45,7 @@ class ProjectServiceImplTest {
 
   @BeforeEach
   void setUp() {
-    service = new ProjectServiceImpl(repository, new ProjectMapperImpl(new TeamMapperImpl()));
+    service = new ProjectServiceImpl(repository, new ProjectMapperImpl(new TeamMapperImpl(), new StatusMapperImpl()));
   }
 
   @Test

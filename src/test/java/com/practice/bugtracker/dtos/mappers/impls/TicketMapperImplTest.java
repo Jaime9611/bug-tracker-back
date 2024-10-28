@@ -22,7 +22,7 @@ class TicketMapperImplTest {
 
   @BeforeEach
   void setUp() {
-    ProjectMapperImpl projectMapper = new ProjectMapperImpl(new TeamMapperImpl());
+    ProjectMapperImpl projectMapper = new ProjectMapperImpl(new TeamMapperImpl(), new StatusMapperImpl());
     ticketMapper = new TicketMapperImpl(new PriorityMapperImpl(), new StatusMapperImpl(),
         new TicketTypeMapperImpl(), projectMapper);
   }
