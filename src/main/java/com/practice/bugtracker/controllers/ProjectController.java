@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "${ui.frontend_url}")
 @RequestMapping(Endpoints.PROJECT)
 public class ProjectController {
 
@@ -25,13 +25,13 @@ public class ProjectController {
 
   @GetMapping()
   public ResponseEntity<List<ProjectDTO>> getAll() {
-    log.info("GET - All Projects");
+    log.debug("GET - All Projects in Controller");
     return ResponseEntity.ok(projectService.getAll());
   }
 
   @GetMapping(Endpoints.PROJECT_ID)
   public ResponseEntity<ProjectDTO> getById(@PathVariable UUID id) {
-    log.debug("GET - Project by ID: " + id);
+    log.debug("GET - Project by ID: " + id + "in Controller");
     return ResponseEntity.ok(projectService.getById(id));
   }
 }

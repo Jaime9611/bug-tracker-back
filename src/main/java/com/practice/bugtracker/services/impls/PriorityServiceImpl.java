@@ -7,13 +7,14 @@ import com.practice.bugtracker.repositories.PriorityRepository;
 import com.practice.bugtracker.services.PriorityService;
 import com.practice.bugtracker.validations.exceptions.NotFoundException;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PriorityServiceImpl implements PriorityService {
@@ -23,6 +24,8 @@ public class PriorityServiceImpl implements PriorityService {
 
   @Override
   public PriorityDTO create(PriorityDTO priorityDTO) {
+    log.debug(String.format("%s - create was called with priority: %s", PriorityService.class.getName(), priorityDTO.getTitle()));
+
     return priorityMapper.priorityToPriorityDto(
         priorityRepository.save(priorityMapper.priorityDtoToPriority(priorityDTO))
     );
@@ -30,6 +33,8 @@ public class PriorityServiceImpl implements PriorityService {
 
   @Override
   public PriorityDTO getById(UUID id) {
+    log.debug(String.format("%s - getById was called with Id: %s.", PriorityService.class.getName(), id));
+
     Priority foundPriority = priorityRepository.findById(id).orElseThrow(
         NotFoundException::new);
 
@@ -38,6 +43,8 @@ public class PriorityServiceImpl implements PriorityService {
 
   @Override
   public List<PriorityDTO> getAll() {
+    log.debug(String.format("%s - getAll was called.", PriorityService.class.getName()));
+
     return StreamSupport.stream(priorityRepository.findAll().spliterator(), false)
         .map(priorityMapper::priorityToPriorityDto)
         .collect(Collectors.toList());

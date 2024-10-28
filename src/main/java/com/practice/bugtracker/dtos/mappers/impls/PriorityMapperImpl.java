@@ -1,7 +1,6 @@
 package com.practice.bugtracker.dtos.mappers.impls;
 
 import com.practice.bugtracker.dtos.PriorityDTO;
-import com.practice.bugtracker.dtos.TicketDTO;
 import com.practice.bugtracker.dtos.mappers.PriorityMapper;
 import com.practice.bugtracker.models.Priority;
 import org.springframework.stereotype.Component;
