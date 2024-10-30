@@ -44,4 +44,14 @@ public class ProjectBuilder {
     return statusList;
   }
 
+  public static List<ProjectDTO> buildProjectDTOList(int size) {
+    List<ProjectDTO> statusList = new ArrayList<>();
+
+    for (int x = 0; x < size; x++) {
+      statusList.add(buildProjectDto());
+    }
+
+    return statusList;
+  }
+
 }
